@@ -8,7 +8,7 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
 	.container{
-		margin-top: 70px;
+		margin-top: 10px;
 		margin-bottom: 50px;
 	}
 	.badge-danger {
@@ -17,16 +17,19 @@
 	.badge-primary {
 		background-color: #428bca !important;
 	}
-	.header{
-		margin-bottom: 10px;
-	}
 	th[data-sort]{
       cursor:pointer;
     }
 	</style>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="row">
+	<div class="col-md-12 header">
+		<img src="img/header-mana1.jpg" width="100%"/>
+	</div>
+	<div class="col-md-12">
+		<nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -43,9 +46,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorys <span class="caret"></span></a>
-          <ul class="dropdown-menu categorys" role="menu">
-          	<!-- Categorys -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+          <ul class="dropdown-menu categories" role="menu">
+          	<!-- categories -->
           </ul>
         </li>
       </ul>
@@ -55,10 +58,6 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container">
-<div class="row">
-	<div class="col-md-12 header">
-		<img src="img/header-mana1.jpg" width="100%"/>
 	</div>
 	<div class="col-md-8">
 	<div class="items panel">
@@ -82,9 +81,14 @@
 </div>
 </div>
 <div class="col-md-4">
-	 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna. Vestibulum sollicitudin metus quis quam molestie viverra. Maecenas a finibus diam. Maecenas odio erat, venenatis a efficitur nec, iaculis id quam. Quisque pulvinar nisi eget placerat pulvinar. Nullam at imperdiet ex, sit amet tincidunt ipsum. Integer commodo dolor ex, eget rutrum arcu molestie ut.
-<br/><br/>
-Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc. In hac habitasse platea dictumst. Duis eu suscipit metus. Proin magna ipsum, pretium eu ultrices ac, imperdiet sit amet justo. Aliquam porttitor sed sapien et dictum. Nam quis tellus vel nisl cursus faucibus ut a ligula. 
+	<h4>Terms</h4>
+	 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna. Vestibulum sollicitudin metus quis quam molestie viverra. Maecenas a finibus diam. 
+	 <br/><br/>
+	<h4>Conditions</h4>
+	 Maecenas odio erat, venenatis a efficitur nec, iaculis id quam. Quisque pulvinar nisi eget placerat pulvinar. Nullam at imperdiet ex, sit amet tincidunt ipsum. Integer commodo dolor ex, eget rutrum arcu molestie ut.
+	<br/><br/>
+	<h4>Disclaimer</h4>
+	Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc. In hac habitasse platea dictumst. Duis eu suscipit metus. 
 </div>
 	</div>
 </div>
@@ -95,7 +99,7 @@ Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Basket</h4>
+        <h4 class="modal-title" id="myModalLabel">Basket <span class="badge basketicon">0</span></h4>
       </div>
       <div class="modal-body">
         <table class="table table-hover">
@@ -113,7 +117,7 @@ Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius
 		</table>
 
 		<hr/>
-
+		<h4>Order details</h4>
 		<!-- Form -->
 		<form class="form-horizontal" role="form">
 		  <div class="form-group">
@@ -215,10 +219,10 @@ $(document).ready(function(){
 			var noOfItems = SKWEBSHOP.getTotalItems();
 			$(".basketicon").html(noOfItems);
 			
-			$(".categorys").html("");
+			$(".categories").html("");
 			
 			$.each(data, function (key, val){
-				$(".categorys").append("<li><a href='#' data-cat='"+key+"'>"+key.charAt(0).toUpperCase() + key.slice(1) +"</a></li>")
+				$(".categories").append("<li><a href='#' data-cat='"+key+"'>"+key.charAt(0).toUpperCase() + key.slice(1) +"</a></li>")
 			});
 			$(".thecat").html(category.charAt(0).toUpperCase() + category.slice(1));
 
@@ -287,7 +291,23 @@ $(document).ready(function(){
     	});
 	}
 
-	$(document).on('click', '.categorys li', function (e){
+	function formValidate(){
+		var inFirst = "";
+		var inLast = "";
+		var inStreet = "";
+		var inZip = "";
+		var inCity = "";
+		var inEmail = "";
+		var inPhone = "";
+
+		if (typeof inFirst !== "string"){
+			return false;
+		}
+
+		return true;
+	}
+
+	$(document).on('click', '.categories li', function (e){
 		var theCategory = $(e.target).attr("data-cat");
 		
 		readJson(theCategory);
