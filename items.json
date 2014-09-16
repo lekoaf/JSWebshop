@@ -1,0 +1,73 @@
+{
+	"kitchen": {
+		"000001": {
+			"title": "Vaccum cleaner",
+			"stock": 8,
+			"price": 599
+		},
+		"000002": {
+			"title": "Toaster",
+			"stock": 0,
+			"price": 349
+		},
+		"000003": {
+			"title": "Dish washer",
+			"stock": 2,
+			"price": 4995
+		},
+		"000004": {
+			"title": "Laundry machine",
+			"stock": 10,
+			"price": 3695
+		},
+		"000005": {
+			"title": "Dryer",
+			"stock": 0,
+			"price": 2998
+		},
+		"000006": {
+			"title": "Micro wave oven",
+			"stock": 5,
+			"price": 649
+		},
+		"000007": {
+			"title": "Coffe machine",
+			"stock": 9,
+			"price": 299
+		},
+		"000008": {
+			"title": "Refrigerator",
+			"stock": 97,
+			"price": 6798
+		},
+		"000009": {
+			"title": "Freezer",
+			"stock": 4,
+			"price": 5985
+		}
+	},
+	"bedroom": {
+		"000010": {
+			"title": "Bed",
+			"stock": 4,
+			"price": 4859
+		},
+		"000011":{
+			"title": "Bedside table",
+			"stock": 8,
+			"price": 99
+		}
+	},
+	"livingroom": {
+		"000012": {
+			"title": "Sofa",
+			"stock": 6,
+			"price": 9998
+		},
+		"000013": {
+			"title": "TV bench",
+			"stock": 32,
+			"price": 499
+		}
+	}
+}

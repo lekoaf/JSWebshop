@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Webshop test</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+	.items{
+		/*
+		max-width:700px;
+		width:90%;
+		margin: auto;
+		border: 1px solid black;
+		padding: 5px 5px 5px 5px;
+		margin-top: 70px;
+		*/
+	}
+	.container{
+		margin-top: 70px;
+	}
+	.badge-danger {
+		background-color: #d9534f !important;
+	}
+	.badge-primary {
+		background-color: #428bca !important;
+	}
+	.container{
+		margin-bottom: 50px;
+	}
+	.header{
+		margin-bottom: 10px;
+	}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Webshop</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorys <span class="caret"></span></a>
+          <ul class="dropdown-menu categorys" role="menu">
+          	<!-- Categorys -->
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="showbasket"><i class="fa fa-shopping-cart"></i> Basket <span class="badge basketicon">0</span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+<div class="row">
+	<div class="col-md-12 header">
+		<img src="img/header-mana1.jpg" width="100%"/>
+	</div>
+	<div class="col-md-8">
+	<div class="items panel">
+		<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna.</p>
+		<h3 class="thecat"></h3>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Number</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Webshop content -->
+			</tbody>
+		</table>
+		<button id="next" class="btn btn-success pull-right">Order <i class="fa fa-angle-right"></i>
+</button>
+</div>
+</div>
+<div class="col-md-4">
+	 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna. Vestibulum sollicitudin metus quis quam molestie viverra. Maecenas a finibus diam. Maecenas odio erat, venenatis a efficitur nec, iaculis id quam. Quisque pulvinar nisi eget placerat pulvinar. Nullam at imperdiet ex, sit amet tincidunt ipsum. Integer commodo dolor ex, eget rutrum arcu molestie ut.
+<br/><br/>
+Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc. In hac habitasse platea dictumst. Duis eu suscipit metus. Proin magna ipsum, pretium eu ultrices ac, imperdiet sit amet justo. Aliquam porttitor sed sapien et dictum. Nam quis tellus vel nisl cursus faucibus ut a ligula. 
+</div>
+	</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="webshop.js"></script>
+<script>
+$(document).ready(function(){
+
+	// Perhaps some kind of quick templating with $.load()
+	// http://api.jquery.com/load/
+
+	function readJson(category){
+		var ajaxOptions = {
+	        processData: false,
+	        dataType: 'json',
+	        contentType: 'application/json',
+	        success : getItemSuccess,
+	        error : getItemError,
+	        type: 'GET',
+	    };
+
+	    $.ajax('items.json', ajaxOptions);
+
+	    function getItemSuccess(data, msg, jqxhr){
+	    	SKWEBSHOP.setItems(data);
+
+	    	SKWEBSHOP.setCategory(category);
+
+	    	SKWEBSHOP.setTotal();
+			var noOfItems = SKWEBSHOP.getTotalItems();
+			$(".basketicon").html(noOfItems);
+			
+			$(".categorys").html("");
+			
+			$.each(data, function (key, val){
+				$(".categorys").append("<li><a href='#' data-cat='"+key+"'>"+key.charAt(0).toUpperCase() + key.slice(1) +"</a></li>")
+			});
+			$(".thecat").html(category.charAt(0).toUpperCase() + category.slice(1));
+
+			setCategory(category, data);
+	    }
+
+	    function getItemError(jqxhr, status, error){
+	    	console.log("error");
+	    	console.log(jqxhr);
+	    	console.log(status);
+	    	console.log(error);
+	    }
+	}
+
+	function setCategory(category, data){
+		$(".items tbody").html(function(){
+			var shopHtml = "";
+
+			$.each(data, function (key, val){
+				if (key === category){
+					
+					var catObj = val;
+
+					$.each(catObj, function (key, val){
+						if (catObj[key].stock){
+							shopHtml += "<tr>"+
+							"<td>"+catObj[key].title+" <span class='badge badge-primary'>"+catObj[key].stock+"</span></td>"+
+							"<td><input type='text' class='form-control' name='"+key+"' id='"+key+"' size='3' value='0'/></td>"+
+							"<td>"+catObj[key].price.toFixed(2)+" kr	</td>"+
+							"<td><button data-artno='"+key+"' class='btn btn-primary order'>Buy</button></td></tr>";
+						} else {
+							shopHtml += "<tr>"+
+							"<td>"+catObj[key].title+" <span class='badge badge-danger'>"+catObj[key].stock+"</span></td>"+
+							"<td><input type='text' class='form-control' name='"+key+"' id='"+key+"' size='3' value='0'/></td>"+
+							"<td>"+catObj[key].price.toFixed(2)+" kr	</td>"+
+							"<td><button data-artno='"+key+"' class='btn btn-primary disabled order'>Buy</button></td></tr>";
+						}
+					});
+				}
+			});
+			return shopHtml;
+		});
+	}
+
+	function showBasket(){
+		$(".items tbody").html(function(){
+    		var basketHtml = "";
+    		var b = SKWEBSHOP.getBasket();
+    		var totp = 0;
+
+	    	$.each(b, function (key, val){
+	    		var p = SKWEBSHOP.getItemInfo(val.cat, val.item);
+	    		
+	    		totp = totp + (p.price * val.no);
+
+	    		basketHtml += "<tr>"+
+				"<td>"+p.name+"</td>"+
+				"<td><input type='text' class='form-control' name='"+val.item+"' id='"+val.item+"' size='3' value='"+val.no+"'/></td>"+
+				"<td>"+p.price.toFixed(2)+" kr</td>"+
+				"<td><button data-artno='"+val.item+"' class='btn btn-primary orderupdate'>Update</button> <button class='btn btn-danger orderdelete' data-artno='"+val.item+"'>&times;</button></td></tr>";
+
+	    	});
+
+	    	$(".thecat").html("Basket");
+
+	    	return basketHtml;
+    	});
+	}
+
+	$(document).on('click', '.categorys li', function (e){
+		var theCategory = $(e.target).attr("data-cat");
+		
+		readJson(theCategory);
+	});
+
+    $(document).on('click', '.order', function (e){
+    	
+    	var artno = $(e.target).attr('data-artno');
+    	var no = $("#"+artno).val();
+
+    	if (no && no !== "0" && !isNaN(no)){
+    		SKWEBSHOP.addToBasket(parseInt(no), artno);
+    		SKWEBSHOP.setTotal();
+    		SKWEBSHOP.talk();
+    		$("#"+artno).val("0");
+	    	$(".basketicon").html(SKWEBSHOP.getTotalItems());
+    	}
+
+    });
+
+    $(document).on('click', '#next', function(){
+
+    	SKWEBSHOP.setTotal();
+    	
+    	var theData = {
+    		// TODO: noItems and totPrice will cause error
+    		noItems: SKWEBSHOP.totalItems,
+    		totPrice: SKWEBSHOP.totalPrice,
+    		basket: SKWEBSHOP.getBasket()
+    	};
+
+    	console.log(theData);
+
+    	// var ajaxOptions = {
+	    //     processData: false,
+	    //     dataType: 'json',
+	    //     contentType: 'application/json',
+	    //     success : sendOrderSuccess,
+	    //     error : sendOrderError,
+	    //     data: theData,
+	    //     type: 'POST',
+	    // };
+
+    	// $.ajax('/send', ajaxOptions);
+
+    });
+
+    $(document).on('click', '.showbasket', function(){
+    	showBasket();
+    });
+
+    $(document).on('click', '.orderupdate', function (e){
+    	var artno = $(e.target).attr('data-artno');
+    	var no = $("#"+artno).val();
+    	if (no && !isNaN(no)){
+	    	SKWEBSHOP.updateBasketItem(parseInt(no), artno);
+	    	SKWEBSHOP.setTotal();
+		    $(".basketicon").html(SKWEBSHOP.getTotalItems());
+		    showBasket();
+		}
+    });
+
+    $(document).on('click', '.orderdelete', function (e){
+    	var artno = $(e.target).attr('data-artno');
+    	SKWEBSHOP.deleteFromBasket(artno);
+    	SKWEBSHOP.setTotal();
+    	$(".basketicon").html(SKWEBSHOP.getTotalItems());
+    	showBasket();
+    });
+
+    readJson("kitchen"); // Set your default category
+    SKWEBSHOP.getStorage();
+
+});
+</script>
+</html>

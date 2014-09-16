@@ -1,0 +1,9 @@
+{
+	"name": "tidrapport", 
+	"version": "0.0.2",
+	"description": "Tidrapport-app för Skärmklart",
+	"dependencies": {
+		"mongodb": "*",
+		"express": "*"
+	}
+}
