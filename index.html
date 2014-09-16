@@ -187,8 +187,8 @@ $(document).ready(function(){
 
 	    var th = $(this).find("th");
 	    th.find(".arrow").remove();
-	    var arrow = data.direction === "asc" ? "↑" : "↓";
-	    th.eq(data.column).append('<span class="arrow">' + arrow +'</span>');
+	    var arrow = data.direction === "asc" ? "<i class='fa fa-chevron-up'></i>" : "<i class='fa fa-chevron-down'></i>";
+	    th.eq(data.column).append('<span class="arrow"> ' + arrow +'</span>');
 	});
 
 	// Perhaps some kind of quick templating with $.load()
@@ -204,7 +204,7 @@ $(document).ready(function(){
 	        type: 'GET',
 	    };
 
-	    $.ajax('items.json', ajaxOptions);
+	    $.ajax('db/items.json', ajaxOptions);
 
 	    function getItemSuccess(data, msg, jqxhr){
 	    	SKWEBSHOP.setItems(data);
