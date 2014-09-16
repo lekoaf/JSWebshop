@@ -20,6 +20,9 @@
 	.header{
 		margin-bottom: 10px;
 	}
+	th[data-sort]{
+      cursor:pointer;
+    }
 	</style>
 </head>
 <body>
@@ -64,9 +67,9 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Description</th>
+					<th data-sort="string">Description</th>
 					<th>Number</th>
-					<th>Price</th>
+					<th data-sort="float">Price</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -98,9 +101,9 @@ Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius
         <table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Description</th>
+					<th data-sort="string">Description</th>
 					<th>Number</th>
-					<th>Price</th>
+					<th data-sort="float">Price</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -114,15 +117,45 @@ Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius
 		<!-- Form -->
 		<form class="form-horizontal" role="form">
 		  <div class="form-group">
-		    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+		    <label for="inFirst" class="col-sm-2 control-label">First name</label>
 		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+		      <input type="text" class="form-control" id="inFirst" placeholder="First name">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+		    <label for="inLast" class="col-sm-2 control-label">Last name</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+		      <input type="text" class="form-control" id="inLast" placeholder="Last name">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inStreet" class="col-sm-2 control-label">Street</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="inStreet" placeholder="Street">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inZip" class="col-sm-2 control-label">Zip code</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="inZip" placeholder="Zip code">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inCity" class="col-sm-2 control-label">City</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="inCity" placeholder="City">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inEmail" class="col-sm-2 control-label">Email</label>
+		    <div class="col-sm-10">
+		      <input type="email" class="form-control" id="inEmail" placeholder="Email">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inPhone" class="col-sm-2 control-label">Phone</label>
+		    <div class="col-sm-10">
+		      <input type="tel" class="form-control" id="inPhone" placeholder="Phone">
 		    </div>
 		  </div>
 		</form>
@@ -139,9 +172,24 @@ Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius
 </body>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="webshop.js"></script>
+<script src="js/webshop.js"></script>
+<script src="js/stupidtable.min.js"></script>
 <script>
 $(document).ready(function(){
+
+	var table = $(".table").stupidtable({
+	    // Sort functions here
+	});
+
+	table.bind('aftertablesort', function (event, data) {
+	    // data.column - the index of the column sorted after a click
+	    // data.direction - the sorting direction (either asc or desc)
+
+	    var th = $(this).find("th");
+	    th.find(".arrow").remove();
+	    var arrow = data.direction === "asc" ? "↑" : "↓";
+	    th.eq(data.column).append('<span class="arrow">' + arrow +'</span>');
+	});
 
 	// Perhaps some kind of quick templating with $.load()
 	// http://api.jquery.com/load/
