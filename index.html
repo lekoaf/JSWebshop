@@ -7,27 +7,15 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
-	.items{
-		/*
-		max-width:700px;
-		width:90%;
-		margin: auto;
-		border: 1px solid black;
-		padding: 5px 5px 5px 5px;
-		margin-top: 70px;
-		*/
-	}
 	.container{
 		margin-top: 70px;
+		margin-bottom: 50px;
 	}
 	.badge-danger {
 		background-color: #d9534f !important;
 	}
 	.badge-primary {
 		background-color: #428bca !important;
-	}
-	.container{
-		margin-bottom: 50px;
 	}
 	.header{
 		margin-bottom: 10px;
@@ -86,7 +74,7 @@
 				<!-- Webshop content -->
 			</tbody>
 		</table>
-		<button id="next" class="btn btn-success pull-right">Order <i class="fa fa-angle-right"></i>
+		<button id="next" class="btn btn-success pull-right showbasket">Order <i class="fa fa-angle-right"></i>
 </button>
 </div>
 </div>
@@ -96,6 +84,57 @@
 Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc. In hac habitasse platea dictumst. Duis eu suscipit metus. Proin magna ipsum, pretium eu ultrices ac, imperdiet sit amet justo. Aliquam porttitor sed sapien et dictum. Nam quis tellus vel nisl cursus faucibus ut a ligula. 
 </div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="basketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Basket</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Number</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Webshop content -->
+			</tbody>
+		</table>
+
+		<hr/>
+
+		<!-- Form -->
+		<form class="form-horizontal" role="form">
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+		    <div class="col-sm-10">
+		      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+		    </div>
+		  </div>
+		</form>
+		<!-- /Form -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary sendOrder">Send order</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -177,7 +216,8 @@ $(document).ready(function(){
 	}
 
 	function showBasket(){
-		$(".items tbody").html(function(){
+		$('#basketModal').modal();
+		$(".modal-body tbody").html(function(){
     		var basketHtml = "";
     		var b = SKWEBSHOP.getBasket();
     		var totp = 0;
@@ -189,13 +229,11 @@ $(document).ready(function(){
 
 	    		basketHtml += "<tr>"+
 				"<td>"+p.name+"</td>"+
-				"<td><input type='text' class='form-control' name='"+val.item+"' id='"+val.item+"' size='3' value='"+val.no+"'/></td>"+
+				"<td><input type='text' class='form-control' name='"+val.item+"' id='id"+val.item+"' size='3' value='"+val.no+"'/></td>"+
 				"<td>"+p.price.toFixed(2)+" kr</td>"+
 				"<td><button data-artno='"+val.item+"' class='btn btn-primary orderupdate'>Update</button> <button class='btn btn-danger orderdelete' data-artno='"+val.item+"'>&times;</button></td></tr>";
 
 	    	});
-
-	    	$(".thecat").html("Basket");
 
 	    	return basketHtml;
     	});
@@ -223,17 +261,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '#next', function(){
-
-    	SKWEBSHOP.setTotal();
-    	
-    	var theData = {
-    		// TODO: noItems and totPrice will cause error
-    		noItems: SKWEBSHOP.totalItems,
-    		totPrice: SKWEBSHOP.totalPrice,
-    		basket: SKWEBSHOP.getBasket()
-    	};
-
-    	console.log(theData);
+    	showBasket();
 
     	// var ajaxOptions = {
 	    //     processData: false,
@@ -255,7 +283,9 @@ $(document).ready(function(){
 
     $(document).on('click', '.orderupdate', function (e){
     	var artno = $(e.target).attr('data-artno');
-    	var no = $("#"+artno).val();
+    	console.log("artno: "+artno);
+    	var no = $("#id"+artno).val();
+    	console.log("no: "+no);
     	if (no && !isNaN(no)){
 	    	SKWEBSHOP.updateBasketItem(parseInt(no), artno);
 	    	SKWEBSHOP.setTotal();
@@ -270,6 +300,12 @@ $(document).ready(function(){
     	SKWEBSHOP.setTotal();
     	$(".basketicon").html(SKWEBSHOP.getTotalItems());
     	showBasket();
+    });
+
+    $(document).on('click', '.sendOrder', function(){
+    	// Get basket
+    	// Get form input
+    	// Send order
     });
 
     readJson("kitchen"); // Set your default category
