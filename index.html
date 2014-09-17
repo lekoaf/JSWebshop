@@ -119,47 +119,47 @@
 		<hr/>
 		<h4>Order details</h4>
 		<!-- Form -->
-		<form class="form-horizontal" role="form">
+		<form class="form-horizontal" role="form" id="orderDetails">
 		  <div class="form-group">
 		    <label for="inFirst" class="col-sm-2 control-label">First name</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inFirst" placeholder="First name">
+		      <input type="text" class="form-control" id="inFirst" placeholder="First name" data-validate-as="string">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inLast" class="col-sm-2 control-label">Last name</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inLast" placeholder="Last name">
+		      <input type="text" class="form-control" id="inLast" placeholder="Last name" data-validate-as="string">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inStreet" class="col-sm-2 control-label">Street</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inStreet" placeholder="Street">
+		      <input type="text" class="form-control" id="inStreet" placeholder="Street" data-validate-as="string">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inZip" class="col-sm-2 control-label">Zip code</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inZip" placeholder="Zip code">
+		      <input type="text" class="form-control" id="inZip" placeholder="Zip code" data-validate-as="number">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inCity" class="col-sm-2 control-label">City</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inCity" placeholder="City">
+		      <input type="text" class="form-control" id="inCity" placeholder="City" data-validate-as="string">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inEmail" class="col-sm-2 control-label">Email</label>
 		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="inEmail" placeholder="Email">
+		      <input type="email" class="form-control" id="inEmail" placeholder="Email" data-validate-as="email">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inPhone" class="col-sm-2 control-label">Phone</label>
 		    <div class="col-sm-10">
-		      <input type="tel" class="form-control" id="inPhone" placeholder="Phone">
+		      <input type="tel" class="form-control" id="inPhone" placeholder="Phone" data-validate-as="number">
 		    </div>
 		  </div>
 		</form>
@@ -178,9 +178,11 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="js/webshop.js"></script>
 <script src="js/stupidtable.min.js"></script>
+<script src="js/formvalidate.js"></script>
 <script>
 $(document).ready(function(){
 
+	// Stupid table jQuery plugin - http://joequery.github.io/Stupid-Table-Plugin/
 	var table = $(".table").stupidtable({
 	    // Sort functions here
 	});
@@ -291,21 +293,12 @@ $(document).ready(function(){
     	});
 	}
 
-	function formValidate(){
-		var inFirst = "";
-		var inLast = "";
-		var inStreet = "";
-		var inZip = "";
-		var inCity = "";
-		var inEmail = "";
-		var inPhone = "";
-
-		if (typeof inFirst !== "string"){
-			return false;
-		}
-
-		return true;
-	}
+	$(document).on('click', '.sendOrder', function(){
+    	validate('#orderDetails');
+    	// Get basket
+    	// Get form input
+    	// Send order
+    });
 
 	$(document).on('click', '.categories li', function (e){
 		var theCategory = $(e.target).attr("data-cat");
@@ -368,12 +361,6 @@ $(document).ready(function(){
     	SKWEBSHOP.setTotal();
     	$(".basketicon").html(SKWEBSHOP.getTotalItems());
     	showBasket();
-    });
-
-    $(document).on('click', '.sendOrder', function(){
-    	// Get basket
-    	// Get form input
-    	// Send order
     });
 
     readJson("kitchen"); // Set your default category
