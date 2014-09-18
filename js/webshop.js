@@ -4,6 +4,7 @@ var SKWEBSHOP = (function(){
 	var totalItems = 0;
 	var basket = [];
 	var items = {};
+	var defaultCategory = "kitchen";
 	var currentCategory = "";
 
 	function setStorage(){
@@ -26,6 +27,9 @@ var SKWEBSHOP = (function(){
 		},
 		setCategory: function(c){
 			currentCategory = c;
+		},
+		getDefaultCategory: function(){
+			return defaultCategory;
 		},
 		addToBasket: function(no, item){
 			console.log("Adding");

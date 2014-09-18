@@ -363,9 +363,8 @@ $(document).ready(function(){
     	showBasket();
     });
 
-    readJson("kitchen"); // Set your default category
+    readJson(SKWEBSHOP.getDefaultCategory()); // Set your default category
     SKWEBSHOP.getStorage();
-
 });
 </script>
 </html>
