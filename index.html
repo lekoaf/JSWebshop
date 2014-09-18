@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=450,maximum-scale=1" />
 	<title>Webshop test</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
@@ -9,7 +10,7 @@
 	<style>
 	.container{
 		margin-top: 10px;
-		margin-bottom: 50px;
+		margin-bottom: 10px;
 	}
 	.badge-danger {
 		background-color: #d9534f !important;
@@ -46,7 +47,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list"></i> Categories <span class="caret"></span></a>
           <ul class="dropdown-menu categories" role="menu">
           	<!-- categories -->
           </ul>
@@ -76,9 +77,7 @@
 				<!-- Webshop content -->
 			</tbody>
 		</table>
-		<button id="next" class="btn btn-success pull-right showbasket">Order <i class="fa fa-angle-right"></i>
-</button>
-</div>
+	</div>
 </div>
 <div class="col-md-4">
 	<h4>Terms</h4>
@@ -224,7 +223,7 @@ $(document).ready(function(){
 			$(".categories").html("");
 			
 			$.each(data, function (key, val){
-				$(".categories").append("<li><a href='#' data-cat='"+key+"'>"+key.charAt(0).toUpperCase() + key.slice(1) +"</a></li>")
+				$(".categories").append("<li><a href='#' data-cat='"+key+"'><i class='fa fa-caret-right'></i> "+key.charAt(0).toUpperCase() + key.slice(1) +"</a></li>")
 			});
 			$(".thecat").html(category.charAt(0).toUpperCase() + category.slice(1));
 
