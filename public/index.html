@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="jsWebshop">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=450,maximum-scale=1" />
+	<title>Webshop test</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+	#bg {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+		
+	  /* Preserve aspect ratio */
+	  min-width: 100%;
+	  min-height: 100%;
+	}
+	.container {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.badge-danger {
+		background-color: #d9534f !important;
+	}
+	.badge-primary {
+		background-color: #428bca !important;
+	}
+	th[data-sort] {
+      cursor:pointer;
+    }
+    .ppad {
+    	padding: 10px;
+    }
+	</style>
+</head>
+<body ng-controller="mainController">
+<img src="img/bg3.jpg" id="bg" alt="">
+<div class="container">
+<div class="row">
+	<div class="col-md-12 header">
+		<img src="img/header-mana1.jpg" width="100%"/>
+	</div>
+	<div class="col-md-12">
+		<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/">Webshop</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list"></i> Categories <span class="caret"></span></a>
+          <ul class="dropdown-menu categories" role="menu">
+			<li ng-repeat="category in categories">
+				<a href="" ng-click="switchCategory(category)"><i class='fa fa-caret-right'></i>{{category | uppercase}}</a>
+			</li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="showbasket"><i class="fa fa-shopping-cart"></i> Basket <span class="badge basketicon">0</span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	</div>
+	<div class="col-md-8">
+	<div class="items panel ppad" ng-view>
+		
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="panel ppad">
+	<h4>Terms</h4>
+	 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna. Vestibulum sollicitudin metus quis quam molestie viverra. Maecenas a finibus diam. 
+	 <br/><br/>
+	<h4>Conditions</h4>
+	 Maecenas odio erat, venenatis a efficitur nec, iaculis id quam. Quisque pulvinar nisi eget placerat pulvinar. Nullam at imperdiet ex, sit amet tincidunt ipsum. Integer commodo dolor ex, eget rutrum arcu molestie ut.
+	<br/><br/>
+	<h4>Disclaimer</h4>
+	Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc.
+</div>
+<div class="panel ppad">
+		<h4>Contact</h4>
+		Company Name <br/>
+		Street 1 </br>
+		90 201 The City <br/>
+		Phone: 000111222333<br/>
+		Email: email@email.com
+	</div>
+</div>
+	</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="app/core/angular.js"></script>
+<script src="app/core/angular-route.js"></script>
+<script src="app/core/angular-animate.js"></script>
+<script src="js/sweet-alert.js"></script>
+
+<script src="app/app.js"></script>
+<script src="app/controllers/mainController.js"></script>
+<script src="app/controllers/itemController.js"></script>
+</html>

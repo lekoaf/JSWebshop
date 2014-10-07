@@ -7,8 +7,19 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="material/css-compiled/ripples.min.css" rel="stylesheet">
+	<link href="material/css-compiled/material-wfont.min.css" rel="stylesheet">
 	<style>
-	.container{
+	#bg {
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+		
+	  /* Preserve aspect ratio */
+	  min-width: 100%;
+	  min-height: 100%;
+	}
+	.container {
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
@@ -18,12 +29,16 @@
 	.badge-primary {
 		background-color: #428bca !important;
 	}
-	th[data-sort]{
+	th[data-sort] {
       cursor:pointer;
+    }
+    .ppad {
+    	padding: 10px;
     }
 	</style>
 </head>
 <body>
+<img src="img/bg3.jpg" id="bg" alt="">
 <div class="container">
 <div class="row">
 	<div class="col-md-12 header">
@@ -61,7 +76,7 @@
 </nav>
 	</div>
 	<div class="col-md-8">
-	<div class="items panel">
+	<div class="items panel ppad">
 		<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna.</p>
 		<h3 class="thecat"></h3>
 		<table class="table table-hover">
@@ -80,6 +95,7 @@
 	</div>
 </div>
 <div class="col-md-4">
+	<div class="panel ppad">
 	<h4>Terms</h4>
 	 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna. Vestibulum sollicitudin metus quis quam molestie viverra. Maecenas a finibus diam. 
 	 <br/><br/>
@@ -87,7 +103,16 @@
 	 Maecenas odio erat, venenatis a efficitur nec, iaculis id quam. Quisque pulvinar nisi eget placerat pulvinar. Nullam at imperdiet ex, sit amet tincidunt ipsum. Integer commodo dolor ex, eget rutrum arcu molestie ut.
 	<br/><br/>
 	<h4>Disclaimer</h4>
-	Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc. In hac habitasse platea dictumst. Duis eu suscipit metus. 
+	Donec sed arcu sem. Pellentesque auctor commodo blandit. Vivamus ut justo varius, ornare ex id, malesuada erat. Vestibulum ultrices ante sit amet orci aliquam dapibus. Integer eget aliquet nunc.
+</div>
+<div class="panel ppad">
+		<h4>Contact</h4>
+		Company Name <br/>
+		Street 1 </br>
+		90 201 The City <br/>
+		Phone: 000111222333<br/>
+		Email: email@email.com
+	</div>
 </div>
 	</div>
 </div>
@@ -294,9 +319,6 @@ $(document).ready(function(){
 
 	$(document).on('click', '.sendOrder', function(){
     	validate('#orderDetails');
-    	// Get basket
-    	// Get form input
-    	// Send order
     });
 
 	$(document).on('click', '.categories li', function (e){

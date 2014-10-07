@@ -1,0 +1,20 @@
+<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis vestibulum lorem, in tristique eros mollis non. Morbi vitae felis nulla. Aliquam id tincidunt magna, eu tempor ipsum. Sed quis nibh a leo porta rhoncus sed non nunc. Praesent quis pharetra orci, a varius urna.</p>
+<h3 class="thecat"></h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th data-sort="string">Description</th>
+			<th>Number</th>
+			<th data-sort="float">Price</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in items">
+			<td>{{item.title}}</td>
+			<td>hopp</td>
+			<td>{{item.price | currency:"SEK "}}</td>
+			<td><button>Knapp</button>
+		</tr>
+	</tbody>
+</table>
