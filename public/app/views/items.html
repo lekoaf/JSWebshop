@@ -11,10 +11,13 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in items">
-			<td>{{item.title}}</td>
-			<td>hopp</td>
+			<td>{{item.title}} 
+				<span class="badge badge-primary" ng-if="item.stock">{{item.stock}}</span>
+				<span class="badge badge-danger" ng-if="!item.stock">{{item.stock}}</span>
+			</td>
+			<td><input type="text" class="form-control"></td>
 			<td>{{item.price | currency:"SEK "}}</td>
-			<td><button>Knapp</button>
+			<td><button class="btn btn-primary">Buy</button>
 		</tr>
 	</tbody>
 </table>
