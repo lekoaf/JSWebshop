@@ -2,10 +2,104 @@ var express = require('express');
 var http = require('http');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var address = 'mongodb://localhost:27017';
 
 var app = express();
 
 app.use(express.static(__dirname + "/public"));
+
+mongoose.connect(address + "/jswebshop");
+
+mongoose.connection.on('connected', function(){
+	console.log("Connected to MongoDB JSWebshop.");
+});
+
+mongoose.connection.on('error', function(){
+	console.log("Unable to connect to MongoDB.");
+});
+
+var Schema = mongoose.Schema;
+
+var itemSchema = new Schema({
+	artno: {type: Number, required: true},
+	name: String,
+	stock: Number,
+	price: Number,
+	image: String,
+	description: String,
+	featured: Boolean,
+	active: Boolean
+	categoryId: Schema.Types.ObjectId
+});
+itemSchema.index({artno: 1}, {unique: true});
+
+var categorySchema = new Schema({
+	name: String,
+	active: Boolean
+});
+
+var userSchema = new Schema({
+	email: {type: String, required: true},
+	password: {type: String, required: true},
+	isadmin: {type: Boolean, default: false},
+	statistics: {
+		signup: {type: Date, default: Date.now},
+		lastlogin: {type: Date, default: Date.now},
+		numlogins: Number
+	},
+	orders:[{
+		orderId: Schema.Types.ObjectId,
+		artno: Number,
+		pcs: Number
+	}]
+});
+userSchema.index({email: 1}, {unique: true});
+
+var settingsSchema = new Schema({
+	copyright: String,
+	headerimg: String,
+	terms: String,
+	conditions: String,
+	disclaimer: String,
+	contact:{
+		name: String,
+		address: String,
+		zip: String,
+		city: String,
+		phone: String,
+		email: String
+	},
+	social: {
+		fb: String, //Facebook
+		tw: String,	//Twitter
+		li: String, //LinkedIn
+		gh: String, //GitHub
+		gp: String, //Google+
+		em: String, //Email
+		ig: String, //Instagram
+		yt: String, //Youtube
+		fl: String  //Flickr
+	}
+});
+
+var Item = mongoose.model('Item', itemSchema);
+var Category = mongoose.model('Category', categorySchema);
+var User = mongoose.model('User', userSchema);
+
+// Routes
+// GET /items - Get item list
+// POST /items - Add new item from admin
+// PUT /items/id - Update an item
+// DELETE /items/id - Delete an item (Soft delete?)
+// GET /categories - Get list of categories
+// POST /categories - Add new category from admin
+// PUT /categories/id - Change name of category
+// DELETE /categories/id - Delete category (Soft delete?)
+// GET /featured - Get front page items. Get 4-6 random items if no featured items
+
+// Keep people from seeing admin template
+// 	http://stackoverflow.com/questions/25347851/how-to-hide-admin-parts-of-angular-site
 
 app.get('/', function (req, res){
 	res.sendfile('./index.html');
